@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'myapp',
     environment,
     rootURL: '/',
@@ -24,7 +24,7 @@ module.exports = function(environment) {
     }
   };
 
-  if (environment === 'development') {
+  if(environment === 'development'){
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -32,7 +32,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
-  if (environment === 'test') {
+  if(environment === 'test'){
     // Testem prefers this...
     ENV.locationType = 'none';
 
@@ -47,12 +47,12 @@ module.exports = function(environment) {
   ENV.remote_couch = `https://my.cloudstation.com/chatfromcouch`  // 'http://localhost:5984/bloggr';
   ENV.local_couch = 'chatfromcouch';
   ENV.authAdapter = 'application';
-  if (environment === 'production') {
+  if(environment === 'production'){
     ENV.rootURL = '/chatfromcouch-app/_design/myapp/_rewrite/';
   }
-  if ( ENV.remote_couch ) {
+  if(ENV.remote_couch){
     // @TODO document why `contentSecurityPolicy` is needed, as it does not appear used anywhere else
-    var remote_couch_hostname = ENV.remote_couch.substring(0, ENV.remote_couch.indexOf('/', 9))
+    let remote_couch_hostname = ENV.remote_couch.substring(0, ENV.remote_couch.indexOf('/', 9))
     ENV.contentSecurityPolicy = {
       'connect-src': "'self' " + remote_couch_hostname
     };
