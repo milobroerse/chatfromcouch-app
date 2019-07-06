@@ -44,12 +44,11 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
-  ENV.remote_couch = false;  // 'http://localhost:5984/bloggr';
-  ENV.local_couch = 'bloggr';
+  ENV.remote_couch = `https://my.cloudstation.com/chatfromcouch`  // 'http://localhost:5984/bloggr';
+  ENV.local_couch = 'chatfromcouch';
   ENV.authAdapter = 'application';
   if (environment === 'production') {
-    ENV.rootURL = '/';
-    ENV.remote_couch = 'https://martinic.couchcluster.com/bloggr';
+    ENV.rootURL = '/chatfromcouch-app/_design/myapp/_rewrite/';
   }
   if ( ENV.remote_couch ) {
     // @TODO document why `contentSecurityPolicy` is needed, as it does not appear used anywhere else

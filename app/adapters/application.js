@@ -14,7 +14,7 @@ export default Adapter.extend({
   init() {
     this._super(...arguments);
 
-    const localDb = config.local_couch || 'blogger';
+    const localDb = config.local_couch || 'chatfromcouch';
 
     assert('local_couch must be set', !isEmpty(localDb));
 
@@ -34,22 +34,41 @@ export default Adapter.extend({
         live: true,
         retry: true
       };
+      let replicationFromHandler = null;
+      let replicationToHandler = null;
 
-      db.replicate.from(remoteDb, replicationOptions).on('paused', (err) => {
-        this.cloudState.setPull(!err);
+      remoteDb.on('loggedin', () => {
+        //console.log('logged in!');
+
+        replicationFromHandler = db.replicate.from(remoteDb, replicationOptions);
+        replicationFromHandler.on('paused', (err) => {
+          this.cloudState.setPull(!err);
+        }).on('active',() => {
+          this.cloudState.setPull(true);
+        });
+
+        replicationToHandler = db.replicate.to(remoteDb, replicationOptions);
+        replicationToHandler.on('paused',(err) => {
+          this.cloudState.setPush(!err);
+        }).on('active',() => {
+          this.cloudState.setPull(true);
+        }).on('error',() => {
+          this.session.invalidate();//mark error by loggin out
+        });
       });
 
-      db.replicate.to(remoteDb, replicationOptions).on('denied', (err) => {
-        if (!err.id.startsWith('_design/')) {
-          //there was an error pushing, probably logged out outside of this app (couch/cloudant dashboard)
-          this.session.invalidate();//this cancels the replication
-
-          throw({message: "Replication failed. Check login?"});//prevent doc from being marked replicated
+      remoteDb.on('loggedout', () => {
+        //console.log('logged out!');
+        if (replicationFromHandler){
+          replicationFromHandler.cancel();
+          replicationFromHandler = null;
         }
-      }).on('paused',(err) => {
-        this.cloudState.setPush(!err);
-      }).on('error',() => {
-        this.session.invalidate();//mark error by loggin out
+        if (replicationToHandler) {
+          replicationToHandler.cancel();
+          replicationToHandler = null;
+        }
+        this.cloudState.setPush(false);
+        this.cloudState.setPull(false);
       });
 
       this.set('remoteDb', remoteDb);
