@@ -2,8 +2,9 @@
 language: node_js
 node_js:
   - "6"
+  - "10"
 
-sudo: false
+sudo: required
 dist: trusty
 
 addons:
@@ -12,6 +13,7 @@ addons:
 cache:
   directories:
     - $HOME/.npm
+    - $HOME/.cache # includes bowers cache
 
 env:
   global:
@@ -21,7 +23,11 @@ env:
 before_install:
   - npm config set spin false
 
+install:
+  - npm run setup
+
 script:
+  - npm run license
   - npm run lint:hbs
   - npm run lint:js
   - npm test

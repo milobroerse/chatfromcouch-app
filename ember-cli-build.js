@@ -4,7 +4,34 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
-    // Add options here
+    // IE 11 needs a Polyfill for startsWith
+    'ember-cli-babel': {
+      includePolyfill: true
+    },
+    // Add fonts to Service Worker cache first
+    'esw-cache-first': {
+      patterns: [
+        'fonts/fontawesome(.+)',
+      ]
+    },
+    'ember-service-worker': {
+      versionStrategy: 'every-build'
+    },
+
+    // Exclude .png favicons from being fingerprinted
+    fingerprint: {
+      exclude: [
+                 'android-chrome-192x192.png',
+                 'android-chrome-512x512.png',
+                 'apple-touch-icon.png',
+                 'favicon-16x16.png',
+                 'favicon-32x32.png',
+                 'mstile-150x150.png'
+               ]
+    },
+    'ember-power-select': {
+       theme: 'bootstrap'
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated

@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = function(environment) {
-  let ENV = {
-    modulePrefix: 'workshop1',
+  var ENV = {
+    modulePrefix: 'myapp',
     environment,
     rootURL: '/',
     locationType: 'auto',
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -43,8 +44,19 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
+  ENV.remote_couch = false;  // 'http://localhost:5984/bloggr';
+  ENV.local_couch = 'bloggr';
+  ENV.authAdapter = 'application';
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    ENV.rootURL = '/';
+    ENV.remote_couch = 'https://martinic.couchcluster.com/bloggr';
+  }
+  if ( ENV.remote_couch ) {
+    // @TODO document why `contentSecurityPolicy` is needed, as it does not appear used anywhere else
+    var remote_couch_hostname = ENV.remote_couch.substring(0, ENV.remote_couch.indexOf('/', 9))
+    ENV.contentSecurityPolicy = {
+      'connect-src': "'self' " + remote_couch_hostname
+    };
   }
 
   return ENV;
