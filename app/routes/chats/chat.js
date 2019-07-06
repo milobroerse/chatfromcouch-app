@@ -2,6 +2,6 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   model: function(params) {
-    return this.store.findRecord('author', params.author_id);
+    return this.store.findRecord('chat', params.chat_id);
   }
 });

@@ -10,11 +10,11 @@ Router.map(function() {
   this.route('about');
   this.route('secret');
   this.route('login');
-  this.route('posts', function() {
-    this.route('post', { path: ':post_id' });
+  this.route('chats', function() {
+    this.route('chat', { path: ':chat_id' });
   });
-  this.route('authors', function() {
-    this.route('author', { path: ':author_id' });
+  this.route('users', function() {
+    this.route('user', { path: ':user_id' });
   });
 });
 

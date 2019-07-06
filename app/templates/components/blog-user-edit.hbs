@@ -1,0 +1,9 @@
+{{#if isEditing}}
+  <p><button {{action "doneEditing"}}>Done</button></p>
+  <p>{{input type="text" value=user.name placeholder="User name" class="form-control"}}</p>
+
+  <p>{{input type="text" value=user.couchUser placeholder="CouldStation User" class="form-control"}}</p>
+  <p><button {{action "deleteUser"}}>Delete</button></p>
+{{else}}
+  <p><button {{action "edit"}}>Edit</button></p>
+{{/if}}

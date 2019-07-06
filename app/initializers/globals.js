@@ -1,5 +1,5 @@
 export function initialize(application) {
-  var globals = {
+  let globals = {
     isEditing: false
   };
 
