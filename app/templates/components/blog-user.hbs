@@ -7,7 +7,7 @@
 
 <ul>
   {{#each user.chats as |chat|}}
-    {{#link-to "chat" chat}}
+    {{#link-to "chats.chat" chat}}
       <li>{{chat.title}}</li>
     {{/link-to}}
   {{/each}}

@@ -18,14 +18,11 @@ export default Controller.extend({
     createChat: function() {
       console.log('User', this.get('currentUser.username'));
 
-      this.store.queryRecord('user', {filter:{ couchUser: this.currentUser.username}}).then((cu) => {
-        console.log('userId', cu.id);
-        this.chat.set('globals.isEditing', true);
-        let newChat = this.store.createRecord('chat');
-        newChat.set('date', new Date());
-        newChat.set('user', cu);
-        this.router.transitionTo('chats.chat', newChat.save());
-      });
+      this.chat.set('globals.isEditing', true);
+      let newChat = this.store.createRecord('chat');
+      newChat.set('date', new Date());
+      this.currentUser.user.then((user) => newChat.set('user', user));
+      this.router.transitionTo('chats.chat', newChat.save());
     }
   }
 });
