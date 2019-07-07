@@ -12,7 +12,7 @@ export default Component.extend({
       this.saveAction();
     },
 
-    deletePost: function() {
+    deleteChat: function() {
       this.deleteAction();
     }
   }

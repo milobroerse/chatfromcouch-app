@@ -5,7 +5,7 @@ import Service, { inject as service } from '@ember/service';
 export default Service.extend({
 	session: service(),
 
-	username: alias('session.data.username'),
+	username: alias('session.data.authenticated.name'),
 
 	roles: alias('session.data.authenticated.roles'),
 
