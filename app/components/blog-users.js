@@ -3,8 +3,8 @@ import { sort, alias } from '@ember/object/computed';
 import pagedArray from 'ember-cli-pagination/computed/paged-array';
 
 export default Component.extend({
-  authorsSorting: Object.freeze(['name']),
-  arrangedContent: sort('authors', 'authorsSorting'),
+  usersSorting: Object.freeze(['name']),
+  arrangedContent: sort('users', 'usersSorting'),
 
   pagedContent: pagedArray('arrangedContent', {
     page: alias('parent.page'),
@@ -12,7 +12,8 @@ export default Component.extend({
   }),
 
   actions: {
-    createAuthor: function() {
+    createUser: function() {
+      console.log('x');
       this.createAction();
     }
   }

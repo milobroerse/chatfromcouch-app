@@ -12,7 +12,7 @@ export default Component.extend({
       this.saveAction();
     },
 
-    deleteAuthor: function() {
+    deleteUser: function() {
       this.deleteAction();
     }
   }

@@ -13,13 +13,13 @@ export default Component.extend({
   // take in `posts` from our view
   // and sort it via `postsSorting`
   // into `arrangedContent`
-  postsSorting: Object.freeze(['date:desc']),
-  arrangedContent: sort('posts', 'postsSorting'),
+  chatsSorting: Object.freeze(['date:desc']),
+  arrangedContent: sort('chats', 'chatsSorting'),
 
   // `arrangedContent` is then used by this filter to create `filteredContent`
   filteredContent: computedFilterByQuery(
     'arrangedContent',
-    ['title', 'body', 'authorName', 'excerpt'],
+    ['title', 'body', 'userName', 'excerpt'],
     'query',
     { conjunction: 'and', sort: false}
   ),
@@ -39,7 +39,7 @@ export default Component.extend({
     resetPage: function() {
       set(this, 'page', 1);
     },
-    createPost: function() {
+    createChat: function() {
       this.createAction();
     }
   }

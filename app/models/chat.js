@@ -2,9 +2,9 @@ import { readOnly } from '@ember/object/computed';
 import DS from "ember-data";
 import { Model } from 'ember-pouch';
 
-var Post = Model.extend({
+let chat = Model.extend({
   title: DS.attr('string', {defaultValue: ""}),
-  author: DS.belongsTo('author'),
+  user: DS.belongsTo('user'),
   date: DS.attr('date'),
   excerpt: DS.attr('string', {defaultValue: ""}),
   body: DS.attr('string', {defaultValue: ""}),
@@ -12,7 +12,7 @@ var Post = Model.extend({
   // alias necessary for `components/blog-posts.hbs` usage of:
   // .property('arrangedContent.@each.title', 'arrangedContent.@each.authorName', 'query'),
   // as doing `arrangedContent.@each.author.name` returns https://github.com/DockYard/ember-composable-helpers/issues/177
-  authorName: readOnly('author.name')
+  userName: readOnly('user.name')
 });
 
-export default Post;
+export default chat;

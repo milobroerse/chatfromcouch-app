@@ -1,0 +1,14 @@
+{{blog-chat-edit chat=chat users=users isEditing=isEditing saveAction=saveAction deleteAction=deleteAction}}
+
+<h1>{{post.title}}</h1>
+<h2>by {{post.user.name}} <small class="muted">({{format-date chat.date}})</small></h2>
+
+<hr>
+
+<div class="intro">
+  {{format-markdown chat.excerpt}}
+</div>
+
+<div class="below-the-fold">
+  {{format-markdown chat.body}}
+</div>

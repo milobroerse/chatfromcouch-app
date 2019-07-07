@@ -1,0 +1,15 @@
+{{blog-user-edit user=user isEditing=isEditing saveAction=saveAction deleteAction=deleteAction}}
+
+<h1>{{user.name}}</h1>
+<p>CloudStation Account: {{user.couchUser}}</p>
+
+<p>Chats by {{user.name}}:
+
+<ul>
+  {{#each user.chats as |chat|}}
+    {{#link-to "chat" chat}}
+      <li>{{chat.title}}</li>
+    {{/link-to}}
+  {{/each}}
+</ul>
+</p>

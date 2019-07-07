@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { inject } from '@ember/controller';
 
 export default Controller.extend({
-  post: inject('posts.post'),
+  chat: inject('chats.chat'),
   router: service(),
 
   page: 1,
@@ -13,11 +13,11 @@ export default Controller.extend({
   queryParams: ["page", "perPage", "query"],
 
   actions: {
-    createPost: function() {
-      this.post.set('globals.isEditing', true);
-      var newPost = this.store.createRecord('post');
-      newPost.set('date' , new Date());
-      this.router.transitionTo('posts.post', newPost.save());
+    createChat: function() {
+      this.chat.set('globals.isEditing', true);
+      let newChat = this.store.createRecord('chat');
+      newChat.set('date' , new Date());
+      this.router.transitionTo('chats.chat', newChat.save());
     }
   }
 });

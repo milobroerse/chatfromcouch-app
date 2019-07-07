@@ -1,18 +1,17 @@
-import Controller, { inject }  from '@ember/controller';
+import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
-  posts: inject(),
   router: service(),
 
   actions: {
-    savePost: function() {
+    saveUser: function() {
       this.model.save();
     },
 
-    deletePost: function() {
+    deleteUser: function() {
       this.model.destroyRecord().then(function() {
-        this.router.transitionTo('posts');
+        this.router.transitionTo('users');
       }.bind(this));
     }
   }
